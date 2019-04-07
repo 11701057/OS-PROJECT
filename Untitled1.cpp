@@ -122,7 +122,7 @@ int main()
    for(int i=0;i<totalRunningLoop;i++){
 
 
-        printf("\nS %d P%d B %d   TAT %d ",i+1,processDetails[i]+1,BurstTime[i],TATList[i]);
+        printf("\n %d P%d B %d   TAT %d ",i+1,processDetails[i]+1,BurstTime[i],TATList[i]);
 
    }
 
