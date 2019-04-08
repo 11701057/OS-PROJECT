@@ -32,7 +32,7 @@ int main()
         loopNeeded += allBurstTime[i]%timeQuantum;
     }
 
-   // printf("\nTotal Loop Needed %d ",loopNeeded );
+    printf("\nTotal Loop Needed %d ",loopNeeded );
 
    int TATList[totalProcess];
 
@@ -143,9 +143,7 @@ int main()
 
    }
 
-   printf("\nTotal Waiting Time : %d ",totalWaitingTime);
-   printf("\nAVG Waiting Time : %0.2f ",(float)totalWaitingTime/(float)totalProcess);
-
+   
 
 
 
