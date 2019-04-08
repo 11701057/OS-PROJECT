@@ -3,151 +3,90 @@
 
 
 int main()
-{
-
-    printf("How many process ? : ");
-    int totalProcess=0;
+{  int totalProcess=0;int t=0;
+    int timequantum[totalProcess];
+	printf("How many process ? : ");
+    
     scanf("%d",&totalProcess);
-
-    int allBurstTime[totalProcess];
+    
+//input
+     int priority[totalProcess];
+     int bursttime[totalProcess];
+    
     for(int i=0;i<totalProcess;i++)
 	{
+        printf("\nenter the priority %d:",i+1);
+         
+        scanf("%d", &priority[i]);
+        
+         printf("enter the burst time%d:",i+1);
+         
+        scanf("%d", &bursttime[priority[i]]);
+        
+        timequantum[priority[i]]=50;
+    }
+    
+    
+//sorting    
+        int swap;
 
-        printf("\nEnter Burst time of process %d : ",i+1);
-        scanf("%d",&allBurstTime[i]);
+	for (int c = 0 ; c < totalProcess - 1; c++)
+  {
+      for (int d = 0 ; d < totalProcess - c - 1; d++)
+    {
+      if (priority[d] > priority[d+1]) 
+      {
+        swap       = priority[d];
+        priority[d]   = priority[d+1];
+       priority[d+1] = swap;
+      }
+    }
+  }
+  
+  
+  
+     
+//  
+  
+for(int i=0;i<totalProcess;i++)
+    {
 
+
+        printf("\n Priority %d Burst time %d  ",priority[i],bursttime[priority[i]]);
     }
 
-    printf("\nEnter Time Quantum : ");
-    int timeQuantum=0;
-    scanf("%d",&timeQuantum);
-
-
-    int loopNeeded=0;
-    for(int i=0;i<totalProcess;i++)
-	{
-    	
-
-        loopNeeded +=  allBurstTime[i]/timeQuantum;
-        loopNeeded += allBurstTime[i]%timeQuantum;
-    }
-
-    printf("\nTotal Loop Needed %d ",loopNeeded );
-
-   int TATList[totalProcess];
-
-   int processNumber[loopNeeded];
-   int BurstTime[loopNeeded];
-   int processDetails[loopNeeded];
-   int processFinishedTAT[totalProcess];
-   int processFinishedTATIndex[totalProcess];
-
-   for(int i=0;i<totalProcess;i++)
-   {
-
-        BurstTime[i] = allBurstTime[i];
-        processNumber[i] = i;
-        processDetails[i]=i;
-
-   }
-
-    int tmp=0;
-    int sequesnceNumber=0;
-    int totalCompletedProcess=0;
-    int totalRunningLoop=0;
-    int TotalTAT=0;
-   for(int i=0;i<loopNeeded;i++)
-   {
-
-
-        totalRunningLoop++;
-
-        int RemainingBurstTime = BurstTime[i]-timeQuantum;
-
-        if(RemainingBurstTime>0){
 
 
 
-            BurstTime[totalProcess+sequesnceNumber] = RemainingBurstTime;
-            processNumber[sequesnceNumber+totalProcess] = totalProcess+i;
-            processDetails[sequesnceNumber+totalProcess] = processDetails[i];
-
-
-            if(RemainingBurstTime>timeQuantum){
-                tmp += timeQuantum;
-                TATList[i] = tmp;
-            }else{
-
-
-                 tmp += timeQuantum;
-                TATList[i] = tmp;
-            }
-
-            sequesnceNumber++;
-
-        }else{
-
-            totalCompletedProcess++;
-
-
-
-             if(RemainingBurstTime==0){
-
-                tmp += timeQuantum;
-
-             }else{
-
-                 tmp += (timeQuantum+RemainingBurstTime);
-
-             }
-
-             TATList[i] = tmp;
-
-              TotalTAT+= tmp;
-
-
-            processFinishedTAT[totalCompletedProcess-1]=tmp;
-            processFinishedTATIndex[totalCompletedProcess-1] = processDetails[i];
-
-        }
-
-        if(totalCompletedProcess==totalProcess){
-            break;
-        }
-
-
-   }
-
-
-   for(int i=0;i<totalRunningLoop;i++){
-
-
-        printf("\n %d P%d B %d   TAT %d ",i+1,processDetails[i]+1,BurstTime[i],TATList[i]);
-
-   }
-
-
-   printf("\nTotal TAT = %d ",TotalTAT);
-   float avgTAT = ((float)TotalTAT/(float)totalProcess*1.0);
-   printf("\n AVG TAT = %.2f ",avgTAT);
-
-
-   int totalWaitingTime=0;
-
-   for(int i=0;i<totalProcess;i++){
-
-        printf("\nP%d  WT %d TAT %d ",processFinishedTATIndex[i]+1,processFinishedTAT[i]-allBurstTime[processFinishedTATIndex[i]],processFinishedTAT[i]);
-
-        totalWaitingTime+= processFinishedTAT[i]-allBurstTime[processFinishedTATIndex[i]];
-
-
-   }
-
-   
-
-
-
-
-
-    return 0;
+  
+ 
+    int a;int time=0;
+     for(int i=0;i<totalProcess;i++)
+     {
+     	if(bursttime[priority[i]]<=timequantum[priority[i]])
+     	{   t=t+bursttime[priority[i]];
+     		printf("\n process no. %d  compilition time is %d" ,priority[i],t);
+		 }
+		else
+		 {
+		 	bursttime[i]=bursttime[i]-timequantum[i];
+		 	
+		 	t=t+timequantum[i];
+		 	printf("\n process no. %d  TAT is %d" ,priority[i],t);
+		 	printf("\n do you want any intrupt if yes press 1 or 2:");
+		 	scanf("%d",&a);
+		 	if(a==1)
+		 	{
+		 	 timequantum[i]=timequantum[i]-5;	
+			}
+			timequantum[i]=timequantum[i]+10;
+			priority[1+totalProcess]=priority[i];
+			totalProcess++;
+		 }
+     	
+	 }
+  
 }
+  
+  
+
